@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Parsed Resume Details</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='parsed_style.css') }}">
+</head>
+
+<body>
+
+  <div class="top-bar">
+    <h2>Extracted Resume Details</h2>
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="{{ url_for('suggestions') }}" class="btn btn-primary">View Resume Suggestions</a>
+
+  </div>
+
+  <div class="container">
+    <form>
+      <label>Full Name</label>
+      <input type="text" value="{{ full_name or '' }}">
+
+      <label>Contact Number</label>
+      <input type="text" value="{{ contact_number or '' }}">
+
+      <label>Email Address</label>
+      <input type="text" value="{{ email_address or '' }}">
+
+      <label>Address</label>
+      <input type="text" value="{{ Address or '' }}">
+
+      <label>Preferred location</label>
+      <input type="text" >
+
+      <label>Technical Skills</label>
+      <textarea rows="2" >{{ technical_skills | join(', ') }}</textarea>
+
+      <label>Non-Technical Skills</label>
+      <textarea rows="2" >{{ non_technical_skills | join(', ') }}</textarea>
+
+      <label>Education</label>
+      <textarea rows="3" >{{ education | join('\n') }}</textarea>
+
+      <label>Work Experience</label>
+      <textarea rows="3" >{{ work_experience | join('\n') }}</textarea>
+
+      <label>Certifications</label>
+      <textarea rows="2" >{{ certifications | join(', ') }}</textarea>
+
+      <label>Languages</label>
+      <textarea rows="2" >{{ languages | join(', ') }}</textarea>
+
+      <label>Suggested Resume Category</label>
+      <input type="text" value="{{ suggested_resume_category or '' }}" readonly>
+
+      <label>Recommended Job Roles</label>
+      <textarea rows="2" readonly>{{ recommended_job_roles | join(', ') }}</textarea>
+
+    </form>
+    
+    {% if job_recommendations %}
+    <div class="job-recommendations-section">
+      <h2>Top Job Recommendations</h2>
+      <ul>
+        {% for job in job_recommendations %}
+        <li style="margin-bottom: 15px;">
+          <h4>{{ job.title }}</h4>
+          <p><strong>Company:</strong> {{ job.company }}</p>
+          <p><strong>Location:</strong> {{ job.location }}</p>
+          <a href="{{ job.url }}" target="_blank">Apply Now</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% else %}
+    <p>No job recommendations available at this time.</p>
+    {% endif %}
+  </div>
+</body>
+</html>

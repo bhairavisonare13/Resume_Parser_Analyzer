@@ -1,0 +1,10 @@
+Flask
+python-dotenv
+PyMuPDF
+requests
+google-generativeai
+Werkzeug
+fpdf
+pdf2docx 
+python-docx 
+fpdf
